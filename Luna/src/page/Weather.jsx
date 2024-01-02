@@ -1,24 +1,61 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function weather() {
-    const [city, setcity] = useState('');
-    const [weather, setweather] = useState(null);
-    
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('003be56097f17c57ab769c11407de85c');
-            setweather(response.data);
-        }catch (error){
-            console.error(error)
-        }
-    }
+const Weather = () => {
+  const [city, setCity] = useState('');
+  const [weatherData, setWeatherData] = useState(null);
 
-    useEffect(() =>{
-        fetchData();
-    })
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&lat=44.34&lon=10.99&appid=a7dead705dedbe4e0d9278728332744b`
+      );
+      setWeatherData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleInputChange = (e) => {
+    setCity(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchData();
+  };
+
   return (
     <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter city name"
+          value={city}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Get Weather</button>
+      </form>
+      {weatherData ? (
+        <>
+          <h2>{weatherData.name}</h2>
+          <p>Temperature: {weatherData.main.temp}°C</p>
+          <p>Description: {weatherData.weather[0].description}</p>
+          <p>Feels like : {weatherData.main.feels_like}°C</p>
+          <p>Humidity : {weatherData.main.humidity}%</p>
+          <p>Pressure : {weatherData.main.pressure}</p>
+          <p>Wind Speed : {weatherData.wind.speed}m/s</p>
+        </>
+      ) : (
+        <p>Loading weather data...</p>
+      )}
     </div>
-  )
-}
+  );
+};
+
+export default Weather;
