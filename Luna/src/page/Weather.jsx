@@ -34,8 +34,8 @@ const Weather = () => {
 
   const getColorText = (description) => {
     switch (description) {
-      case 'few clouds':
-        return 'bg-blue-500';
+      case 'overcast clouds':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
       default:
         return '';
     }
@@ -55,16 +55,17 @@ const Weather = () => {
           </div>
         </div>
         <div className='shadow-lg border-2 rounded-2xl '>
+          <div className='py-5'>
           <form onSubmit={handleSubmit}>
-            <div className='flex rounded mb-2 mx-auto justify-center'>
+            <div className='flex rounded mx-auto justify-center mb-3'>
               <input
                 type='text'
                 placeholder='Search city'
                 value={city}
                 onChange={handleSearch}
-                className='border-y border-l px-3 py-1 w-40 rounded-l-lg focus:outline-none focus:border-blue-400'
+                className='border-y border-l px-3 py-1 w-1/2 rounded-l-lg focus:outline-none focus:border-blue-400 shadow-lg'
               />
-              <button type='submit' className='bg-blue-500 px-3 py-1 rounded-r-lg text-white hover:bg-blue-600'>
+              <button type='submit' className='bg-blue-500 px-3 py-1 rounded-r-lg text-white hover:bg-blue-600 shadow-lg'>
                 Search
               </button>
             </div>
@@ -80,29 +81,27 @@ const Weather = () => {
               
               <div className='flex justify-between '>
                 {/* For displaying weather */}
-                <div className='sm:p-16 md:p-28 p-10 text-white'>
-                  <h2 className='text-4xl mb-3'>{weatherData.name}</h2>
-                  <h2 className='text-4xl mb-3'>{weatherData.weather.icon}</h2>
-                  <div className='flex'>
-                    <p className='text-center text-8xl'>{weatherData.main.temp.toFixed()}°C</p>
-                    <div className='flex items-end'>
-                      <p className={`text-nowrap`}>{weatherData.weather[0].description}</p>
+                <div className='sm:p-10 md:px-28 px-20 p- text-white '>
+                  <h2 className='sm:text-4xl text-3xl mb-4 sm:text-start text-center'>{weatherData.name}</h2>
+                  <div className='grid sm:grid-cols-2'>
+                    <div className='sm:order-2 flex items-end mx-10 flex-col justify-center mb-3'>
+                      <img src={`${getIconUrl(weatherData.weather[0].icon)}`} alt=""  className='w-20 h-20 mx-auto'/>
+                      <p className={`text-nowrap sm:text-2xl`}>{weatherData.weather[0].description}</p>
                     </div>
+                    <p className='sm:order-1 text-center sm:text-8xl text-6xl flex justify-center items-center'>{weatherData.main.temp.toFixed()}°C</p>
                   </div>
-
-                  <p>Feels like : {weatherData.main.feels_like.toFixed()}°C</p>
-                  <p>Humidity : {weatherData.main.humidity}%</p>
-                  <p>Pressure : {weatherData.main.pressure}</p>
-                  <p>Wind Speed : {weatherData.wind.speed}m/s</p>
-                </div>
-
-                <div className='flex justify-center'>
-                  {/* For Icon to display the Icon */}
-                  <img src={`${getIconUrl(weatherData.weather[0].icon)}`} alt=""  className='w-20 h-20'/>
+                  <div className='grid sm:grid-cols-2 gap-4 mt-10 text-center bg-white bg-opacity-40 py-2 rounded'>
+                    <p>Feels like : {weatherData.main.feels_like.toFixed()}°C</p>
+                    <p>Humidity : {weatherData.main.humidity}%</p>
+                    <p>Pressure : {weatherData.main.pressure}</p>
+                    <p>Wind Speed : {weatherData.wind.speed}m/s</p>
+                  </div>
                 </div>
               </div>
             )
           )}
+          </div>
+          
         </div>
       </div>
     </div>
