@@ -34,10 +34,21 @@ const Weather = () => {
 
   const getColorText = (description) => {
     switch (description) {
-      case 'overcast clouds':
+      case 'clear sky':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
+      case 'few clouds':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
+      case 'scattered clouds':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
+      case 'broken clouds':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
+        //Rain
+      case 'shower rain':
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
+      case 'rain':
         return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
       default:
-        return '';
+        return 'bg-gradient-to-bl from-cyan-300 from-10% to-blue-800 to-70%';
     }
   };
   const getIconUrl = (icon) => {
@@ -84,9 +95,9 @@ const Weather = () => {
                 <div className='sm:p-10 md:px-28 px-20 p- text-white '>
                   <h2 className='sm:text-4xl text-3xl mb-4 sm:text-start text-center'>{weatherData.name}</h2>
                   <div className='grid sm:grid-cols-2'>
-                    <div className='sm:order-2 flex items-end mx-10 flex-col justify-center mb-3'>
+                    <div className='sm:order-2  mx-10 flex-col justify-center mb-3'>
                       <img src={`${getIconUrl(weatherData.weather[0].icon)}`} alt=""  className='w-20 h-20 mx-auto'/>
-                      <p className={`text-nowrap sm:text-2xl`}>{weatherData.weather[0].description}</p>
+                      <p className={` sm:text-2xl text-center`}>{weatherData.weather[0].description}</p>
                     </div>
                     <p className='sm:order-1 text-center sm:text-8xl text-6xl flex justify-center items-center'>{weatherData.main.temp.toFixed()}°C</p>
                   </div>
